@@ -2,26 +2,29 @@ import os
 from dotenv import load_dotenv 
 import requests
 import trakt
+import webbrowser 
 
 
-def prepare_oauth():
-    """Loads url for OAuth,the required scopes
-    and the neccessary params 
-
-    """
-    load_dotenv() 
-    url ="https://api.trakt.tv/oauth/authorize"
-    scopes =[
-        "profile:read",
-        "ratings:read",
-        "ratings:write",
-        "watchlist:read",
-        "watchlist:write"
-    ]
+def sign_in(): 
+    load_dotenv()
+    url="https://trakt.tv/oauth/authorize"
+    
     params ={"response_type":"code",
-            "client_id":os.getenv("client_id"),
             "redirect_uri":"urn:ietf:wg:oauth:2.0:oob"
     }
-            
-def configure_oauth():
-    pass
+    try:
+        b=requests.get(url,params=params,timeout=2)
+        if b.status_code==200:
+           webbrowser.open(b.url)
+        else:
+            print("Erorr:",b.status_code())
+    except requests.exceptions.Timeout:
+        print("Timeout Error")
+        
+        
+    
+        
+        
+    
+    
+
