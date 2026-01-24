@@ -1,7 +1,7 @@
-
 import os
 from dotenv import load_dotenv
 import webbrowser
+
 
 def authorize_code():
     """
@@ -22,8 +22,6 @@ def authorize_code():
     webbrowser.open(url)
 
     
-if __name__ == "__main__":
-    authorize_code()
         
         
     

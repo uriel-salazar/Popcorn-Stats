@@ -1,2 +1,3 @@
 .pyc*
 .env*
+auth_code.txt

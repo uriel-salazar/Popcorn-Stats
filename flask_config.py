@@ -8,13 +8,12 @@ def callback():
 
     """
     code = request.args.get("code")
-    print("CODE:", code) # The authorization code 
+    with open("auth_code.txt","w") as c:
+        c.write(code)
     return "Success"
 
 
-if __name__ == "__main__":
-    app.run(port=8000) #it'll run in  8000 port 
-    
+
 
     
     
