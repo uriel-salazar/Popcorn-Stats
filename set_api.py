@@ -20,6 +20,12 @@ def authorize_code():
     )
     
     webbrowser.open(url)
+    
+    
+def get_code():
+    with open("auth_code.txt","r") as c:
+        n=c.read()
+        print(n)
 
     
         
