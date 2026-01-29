@@ -74,7 +74,7 @@ def accces_token(client_secret,client_id,authorization_code):
     
     
     try:
-        catch_token=requests.post(url,json=body,headers=headers)
+        catch_token=requests.post(url,json=body,headers=headers,timeout=2)
         see_json=catch_token.json()
     
         if catch_token.status_code==200:
@@ -100,9 +100,22 @@ def accces_token(client_secret,client_id,authorization_code):
                     
     except requests.exceptions.ConnectionError:
         print("Error Internet.")
+        
+    except requests.exceptions.ConnectTimeout:
+        print("Timeout Error. ")
+        
+
+        
     
     
 def refresh_token(client_id, client_secret,url):
+    """ Rewrites the old access and refresh token for a new one in the file.
+    
+    Args:
+        client_id (str): Client id from Trakt API.
+        client_secret (str): Client secret from Trakt API.
+        url (str): The url for getting the new token.
+    """
     
     with open("credentials.json", "r") as f:
         tokens= json.load(f)
@@ -120,21 +133,31 @@ def refresh_token(client_id, client_secret,url):
         "Accept": "application/json"
     }
 
-    response = requests.post(url, json=payload, headers=headers)
+    
+    try:
+        response = requests.post(url, json=payload, headers=headers,timeout=3)
 
-    if response.status_code == 200:
-        print("Success, new token ")
+        if response.status_code == 200:
+            print("Success, new token ")
+            new_data = response.json()
+            # It replaces the old token with the new one 
+            new_data["access_token"] =tokens["access_token"]
+            new_data["refresh_token"] = tokens["refresh_token"]
 
-        new_data = response.json()
+            with open("credentials.json", "w") as f:
+                json.dump(tokens, f, indent=4)
+        # If the response is not successful, it throws an error
+        elif response.status_code !=200:
+            print("Error",response.status_code)
+    
+    except requests.exceptions.ConnectionError:
+        print(" Bad Internet Connection")
         
-        new_data["access_token"] =tokens["access_token"]
-        new_data["refresh_token"] = tokens["refresh_token"]
-
-        with open("credentials.json", "w") as f:
-            json.dump(tokens, f, indent=4)
-
-    if response.status_code==400:
-        print("Error",response.text)
+    # If the timeout ends, it throws this exception
+    except requests.exceptions.ConnectTimeout:
+       print("")
+    
+        
     
     
     
