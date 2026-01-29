@@ -116,7 +116,8 @@ def refresh_token(client_id, client_secret,url):
     }
 
     headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Accept": "application/json"
     }
 
     response = requests.post(url, json=payload, headers=headers)
@@ -125,12 +126,9 @@ def refresh_token(client_id, client_secret,url):
         print("Success, new token ")
 
         new_data = response.json()
-
-        new_access_token=new_data["access_token"]
-        new_refresh=new_data["refresh_token"]
         
-        response["access_token"] =new_access_token
-        response["refresh_token"] = new_refresh
+        new_data["access_token"] =tokens["access_token"]
+        new_data["refresh_token"] = tokens["refresh_token"]
 
         with open("credentials.json", "w") as f:
             json.dump(tokens, f, indent=4)
