@@ -95,42 +95,48 @@ def accces_token(client_secret,client_id,authorization_code):
             
         # tiny draft 
         elif catch_token.status_code==400: ## track 
-                    refresh_token(client_id,client_secret)
+                    refresh_token(client_id,client_secret,url)
                     
                     
     except requests.exceptions.ConnectionError:
         print("Error Internet.")
     
     
-def refresh_token(client_id,client_secret):
-
-    url = "https://api.trakt.tv/oauth/token"
+def refresh_token(client_id, client_secret,url):
     
-    with open("credentials.json","r") as see:
-        see_credentials=json.load(see)
-        refresh_token=see_credentials["refresh_token"]
+    with open("credentials.json", "r") as f:
+        tokens= json.load(f)
+
+    payload = {
+        "grant_type": "refresh_token",
+        "refresh_token": tokens["refresh_token"],
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "redirect_uri": "http://localhost:8000/callback"
+    }
+
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post(url, json=payload, headers=headers)
+
+    if response.status_code == 200:
+        print("Success, new token ")
+
+        new_data = response.json()
+
+        new_access_token=new_data["access_token"]
+        new_refresh=new_data["refresh_token"]
         
+        response["access_token"] =new_access_token
+        response["refresh_token"] = new_refresh
 
-    payload ={
-  "refresh_token": refresh_token,
-  "client_id": client_id,
-  "client_secret": client_secret,
-  "redirect_uri": "http://localhost:8000/callback",
-  "grant_type": "refresh_token"
-}
-    headers={"Content-Type":"application/json"}
-    get_new_code=requests.post(url,json=payload,headers=headers)
-    
-    if get_new_code.status_code==200:
-        print("Sucesss you got a new code")
-        see_new_json=get_new_code.json()
-        print(see_new_json) # New json with the new access token 
-    
-    elif get_new_code.status_code!=200:
-        print(f"Unsuccessful,{get_new_code.status_code}")
-    
- 
-    
+        with open("credentials.json", "w") as f:
+            json.dump(tokens, f, indent=4)
+
+    if response.status_code==400:
+        print("Error",response.text)
     
     
     
