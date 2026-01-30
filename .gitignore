@@ -2,3 +2,4 @@
 .env*
 auth_code.txt
 credentials.json
+old_functions.py
