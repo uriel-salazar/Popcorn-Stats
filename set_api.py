@@ -4,7 +4,7 @@ import webbrowser
 import requests
 import json
 
-def secret():
+def secret_env():
     """
     Retrieves secret data from .env files by using load_dotenv()
     and os 
@@ -30,13 +30,13 @@ def authorize_code(client_id):
         client_id (str): The client id 
     
     """
+    client_id,_ = secret_env()
     url = (
         "https://trakt.tv/oauth/authorize"
         f"?response_type=code"
         f"&client_id={client_id}"
         f"&redirect_uri=http://localhost:8000/callback"
     )
-    
     
     webbrowser.open(url)
     return client_id
@@ -45,7 +45,7 @@ def authorize_code(client_id):
         
 
     
-def refresh_token(client_id, client_secret):
+def refresh_token():
     """ Rewrites the old access and refresh token for a new one in the file.
     
     Args:
@@ -53,7 +53,7 @@ def refresh_token(client_id, client_secret):
         client_secret (str): Client secret from Trakt API.
         url (str): The url for getting the new token.
     """
-    
+    client_id,client_secret = secret_env()
     url = "https://trakt.tv/oauth/token"
     with open("credentials.json", "r") as f:
         tokens= json.load(f)
@@ -94,8 +94,9 @@ def refresh_token(client_id, client_secret):
     # If the timeout ends, it throws this exception
     except requests.exceptions.ConnectTimeout:
        print("")
+
+
     
-        
     
     
     
