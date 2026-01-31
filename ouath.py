@@ -2,7 +2,6 @@ import requests
 
 def authorization(code,client_id,client_secret):
     url="https://trakt.tv/oauth/token"
-    
     payload = {
         "code":code,
         "client_id":client_id,
@@ -16,10 +15,12 @@ def authorization(code,client_id,client_secret):
     try:
             get_access_token=requests.post(url,json=payload,headers=headers,timeout=3)
             if get_access_token.status_code == 200:
-                return show_strange_code(get_access_token)
+                print("You finally got your access token")
+                jsonn=get_access_token.json()
+                print(jsonn)
             
             elif get_access_token.status_code == 400:
-                refresh_token(client_secret,client_id)
+                print("Error, you might need a refresh token")
                 
             
     except requests.exceptions.ConnectTimeout:
@@ -27,3 +28,5 @@ def authorization(code,client_id,client_secret):
             
     except requests.exceptions.ConnectionError:
             print("Please verify your internet and try again.")
+            
+    return "Authorization finished."
