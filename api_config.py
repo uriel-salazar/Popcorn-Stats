@@ -6,8 +6,8 @@ import json
 
 def secret_env():
     """
-    Retrieves secret data from .env files by using load_dotenv()
-    and os 
+    Retrieves secret data from .env files by using  the library dotenv 
+    and the os module.
 
     Returns:
         client_id (str): Client ID from Trackt API
@@ -20,7 +20,7 @@ def secret_env():
     
     return client_id,client_secret
 
-def authorize_code(client_id):
+def open_link(client_id):
     """
     It sets up the url link with the required credentials for the 
     authorization code.
@@ -40,9 +40,6 @@ def authorize_code(client_id):
     
     webbrowser.open(url)
     return client_id
-
-    
-        
 
     
 def refresh_token():

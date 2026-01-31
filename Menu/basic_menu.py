@@ -1,5 +1,5 @@
-from set_api import authorize_code,secret_env
-from flask_config import app
+from api_config import open_link,secret_env
+from Flask.flask_config import app
 
 
 
@@ -11,7 +11,7 @@ def menu():
         option=int(input("Select an option : "))
         if option==1:
             client_id,client_secret=secret_env()
-            authorize_code(client_id)
+            open_link(client_id)
             app.run(port=8000)
           
             
