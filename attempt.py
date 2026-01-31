@@ -10,7 +10,7 @@ def see_user():
     headers= {"Content-Type": "application/json",
                 "trakt-api-version": "2",
               "trakt-api-key":client_id,
-              "Authorization": "Bearer a1d8eb77676a0a54456bd42f444b323e49ccc3c3de96eff7aeaea1210b24520f "
+              "Authorization": "Bearer (code) "
     }
     get_info=requests.get(url,headers=headers)
     
