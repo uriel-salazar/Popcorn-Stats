@@ -26,7 +26,7 @@ def authorization(code,client_id,client_secret):
                 expire=authorize_json["expires_in"]#test
                 
                 file=Path("tokens.json")
-                if Path.exists:
+                if file.exists():
                     return
                 else:
                     tokens={}

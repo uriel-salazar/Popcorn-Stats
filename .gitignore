@@ -1,5 +1,5 @@
 *.pyc
 .env*
 auth_code.txt
-credentials.json
+tokens.json
 
