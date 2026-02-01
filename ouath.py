@@ -1,6 +1,7 @@
 import requests
 import json
 from pprint import pprint
+from pathlib import Path
 def authorization(code,client_id,client_secret):
     url="https://trakt.tv/oauth/token"
     payload = {
@@ -24,17 +25,19 @@ def authorization(code,client_id,client_secret):
                 refresh=authorize_json["refresh_token"]
                 expire=authorize_json["expires_in"]#test
                 
-                with open("credentials.json","r") as file:
-                    data=json.load(file)
-                    data["access_token"] = accces
-                    data["refresh_token"] = refresh
-                    data["expires_in"] = expire
-        
-                with open("credentials.json","w") as info:
-                    json.dump(data,info,indent=4)
+                file=Path("tokens.json")
+                if Path.exists:
+                    return
+                else:
+                    tokens={}
+                    
+                    with open("tokens.json","w") as info:
+                        tokens["access_token"] = accces
+                        tokens["refresh_token"] = refresh
+                        tokens["expires_in"] = expire
+                        json.dump(tokens,info,indent=4)
                 
-                got_access=True
-                return got_access
+                
                  
     except requests.exceptions.ConnectTimeout:
             print("Connection Timeout,please try again")

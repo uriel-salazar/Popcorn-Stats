@@ -15,12 +15,17 @@ def menu():
             client_id,__=secret_env()
             open_link(client_id)
             app.run(port=8000)
-
-            unauthorized=see_user()
+            
+            
         if option == 2:
-            unauthorized=see_user()
-            if unauthorized == True:
-                refresh_token()
+         #
+                menu_actions
+       #     else:
+        #        print("Please first, log in")
+
+def menu_actions():
+    see_user()
+
                 
                 
             
