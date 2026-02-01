@@ -25,7 +25,8 @@ def callback():
         
         return "Authorization denied."
     
-    return "Finished.", code
+    return "Successful Authorization"
+
     
 
 

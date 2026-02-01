@@ -6,8 +6,7 @@ from attempt import see_user
 def menu():
     while True:
         print(" 1. Log in ")
-        print("2. Did you already log in??")
-        print("3. Check profile")
+        print("2. Menu Trakt")
         
         option=int(input("Select an option : "))
              
@@ -16,15 +15,15 @@ def menu():
             open_link(client_id)
             app.run(port=8000)
             
+        if option==2:
+            menu_options()
             
-        if option == 2:
-         #
-                menu_actions
-       #     else:
-        #        print("Please first, log in")
+            
 
-def menu_actions():
+def menu_options():
+    refresh_token()
     see_user()
+    
 
                 
                 

@@ -4,7 +4,7 @@ from api_config import secret_env
 
 def see_user():
     
-    with open("credentials.json","r") as credentials:
+    with open("tokens.json","r") as credentials:
         see_credentials=json.load(credentials)
         access_token=see_credentials["access_token"]
         

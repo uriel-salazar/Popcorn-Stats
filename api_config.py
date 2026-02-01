@@ -52,7 +52,7 @@ def refresh_token():
     """
     client_id,client_secret = secret_env()
     url = "https://trakt.tv/oauth/token"
-    with open("credentials.json", "r") as f:
+    with open("tokens.json", "r") as f:
         tokens= json.load(f)
 
     payload = {
@@ -79,7 +79,7 @@ def refresh_token():
             new_data["access_token"] =tokens["access_token"]
             new_data["refresh_token"] = tokens["refresh_token"]
 
-            with open("credentials.json", "w") as f:
+            with open("tokens.json", "w") as f:
                 json.dump(tokens, f, indent=4)
         # If the response is not successful, it throws an error
         elif response.status_code !=200:

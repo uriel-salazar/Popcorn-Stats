@@ -20,6 +20,7 @@ def callback():
     
     if code:
         authorization(code,client_id,client_secret)
+        
          
     elif error:
         
@@ -28,9 +29,9 @@ def callback():
     return "Finished."
     
 
-
-
-
+@app.get("/shutdown")
+def shutdown():
+    app.s
 
 
 
