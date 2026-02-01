@@ -83,7 +83,7 @@ def refresh_token():
                 json.dump(tokens, f, indent=4)
         # If the response is not successful, it throws an error
         elif response.status_code !=200:
-            print("Error",response.status_code)
+            print("Error",response.status_code,response.text)
     
     except requests.exceptions.ConnectionError:
         print(" Bad Internet Connection")

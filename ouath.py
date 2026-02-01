@@ -32,9 +32,9 @@ def authorization(code,client_id,client_secret):
         
                 with open("credentials.json","w") as info:
                     json.dump(data,info,indent=4)
-            
-            elif get_access_token.status_code == 400:
-                    print("Error, you might need a refresh token")
+                
+                got_access=True
+                return got_access
                  
     except requests.exceptions.ConnectTimeout:
             print("Connection Timeout,please try again")
