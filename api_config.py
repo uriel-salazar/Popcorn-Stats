@@ -54,6 +54,9 @@ def refresh_token():
     url = "https://trakt.tv/oauth/token"
     with open("tokens.json", "r") as f:
         tokens= json.load(f)
+    if  not os.path.exists("tokens.json"):
+        print("You haven't log in.")
+        return 
 
     payload = {
         "grant_type": "refresh_token",
@@ -76,8 +79,8 @@ def refresh_token():
             print("Success, new token ")
             new_data = response.json()
             # It replaces the old token with the new one 
-            new_data["access_token"] =tokens["access_token"]
-            new_data["refresh_token"] = tokens["refresh_token"]
+            tokens["access_token"] = new_data["access_token"]
+            tokens["refresh_token"] = new_data["refresh_token"]
 
             with open("tokens.json", "w") as f:
                 json.dump(tokens, f, indent=4)

@@ -1,10 +1,11 @@
 import requests
 import json
-from api_config import secret_env
+from api_config import secret_env,refresh_token
 
 def see_user():
     
     with open("tokens.json","r") as credentials:
+        
         see_credentials=json.load(credentials)
         access_token=see_credentials["access_token"]
         
@@ -22,11 +23,11 @@ def see_user():
         print("Sucesss")
         see=get_info.json()
         print(see)
-        unauthorized= False
-    elif get_info.status_code == 401:
-        print("You're unauthorized")
-        unauthorized=True
-    return unauthorized
+        
+    elif get_info.status_code == 400:
+        print("Your token has expired")
+        refresh_token()
+        
 
     
     
