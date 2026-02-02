@@ -1,6 +1,6 @@
 from OAuth.api_config import open_link,secret_env,file_exist
 from Flask.flask_config import app
-from Actions.check_user import see_user
+from Actions.interactions import check_user,top_movies
 from Validate.validate_input import verify_number
 
 
@@ -33,7 +33,9 @@ def menu_options():
             choose_action=verify_number("Please, select an option :")
         
             if choose_action==1:
-                see_user()
+                check_user()
+                top_movies()
+                
     else:
         print("You can't have access to this actions.")
         print("You must authorize your account.")
