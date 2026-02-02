@@ -1,6 +1,6 @@
-from api_config import open_link,secret_env,file_exist
+from OAuth.api_config import open_link,secret_env,file_exist
 from Flask.flask_config import app
-from attempt import see_user
+from check_user import see_user
 from Validate.validate_input import verify_number
 
 
@@ -27,7 +27,7 @@ def menu_options():
     file=file_exist()
     if file:
         while True:
-            print("1. Endpoint")
+            print("1. Top 10 Popular movies !")
             print("2. Endpoint")
             print("3. Endpoint")
             choose_action=verify_number("Please, select an option :")

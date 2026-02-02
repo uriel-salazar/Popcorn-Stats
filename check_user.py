@@ -1,6 +1,6 @@
 import requests
 import json
-from api_config import secret_env,refresh_token
+from OAuth.api_config import secret_env,refresh_token
 
 def see_user():
     """

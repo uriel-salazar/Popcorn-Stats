@@ -1,7 +1,7 @@
 from flask import Flask, request
 import json
-from api_config import secret_env
-from ouath import authorization
+from OAuth.api_config import secret_env
+from OAuth.ouath import authorization
 app = Flask(__name__) 
 
 
