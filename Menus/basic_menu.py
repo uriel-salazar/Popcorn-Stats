@@ -1,4 +1,4 @@
-from api_config import open_link,secret_env,refresh_token
+from api_config import open_link,secret_env,file_exist
 from Flask.flask_config import app
 from attempt import see_user
 
@@ -18,11 +18,22 @@ def menu():
         if option==2:
             menu_options()
             
-            
 
 def menu_options():
-    refresh_token()
-    see_user()
+    file=file_exist()
+    if file:
+        while True:
+            print("1. See your user")
+            print("2.")
+            print("3.")
+            choose_action=int(input("Please, select an option :"))
+        
+            if choose_action==1:
+                see_user()
+    else:
+        print("You can't have access to this actions.")
+        print("You must authorize your account.")
+            
     
 
                 

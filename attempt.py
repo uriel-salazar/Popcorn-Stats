@@ -3,6 +3,12 @@ import json
 from api_config import secret_env,refresh_token
 
 def see_user():
+    """
+    Greets Trakt username with a brief message.
+    If the the authorization token doesn't work, it'll open a function 
+    for refreshing the token.
+    
+    """
     
     with open("tokens.json","r") as credentials:
         

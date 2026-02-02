@@ -22,9 +22,9 @@ def secret_env():
 
 def open_link(client_id):
     """
-    It sets up the url link with the required credentials for the 
+    Opens an url with the required credentials for the 
     authorization code.
-    And opens the link automatically.
+    (It opens automatically in your browser)
     
     Returns:
         client_id (str): The client id 
@@ -44,23 +44,17 @@ def open_link(client_id):
     
 def refresh_token():
     """ Rewrites the old access and refresh token for a new one in the file.
+    If the file doesn't exist yet, it'll exit this function with a return. 
     
-    Args:
-        client_id (str): Client id from Trakt API.
-        client_secret (str): Client secret from Trakt API.
-        url (str): The url for getting the new token.
     """
     client_id,client_secret = secret_env()
     url = "https://trakt.tv/oauth/token"
     with open("tokens.json", "r") as f:
-        tokens= json.load(f)
-    if  not os.path.exists("tokens.json"):
-        print("You haven't log in.")
-        return 
+        old_token = json.load(f)
 
     payload = {
         "grant_type": "refresh_token",
-        "refresh_token": tokens["refresh_token"],
+        "refresh_token": old_token["refresh_token"],
         "client_id": client_id,
         "client_secret": client_secret,
         "redirect_uri": "http://localhost:8000/callback"
@@ -71,20 +65,19 @@ def refresh_token():
         "Accept": "application/json"
     }
 
-    
     try:
         response = requests.post(url, json=payload, headers=headers,timeout=3)
 
         if response.status_code == 200:
             new_data = response.json()
-            # It replaces the old token with the new one 
-            tokens["access_token"] = new_data["access_token"]
-            tokens["refresh_token"] = new_data["refresh_token"]
+            # It replaces the old tokens with the new ones
+            old_token["access_token"] = new_data["access_token"]
+            old_token["refresh_token"] = new_data["refresh_token"]
 
-            with open("tokens.json", "w") as f:
-                json.dump(tokens, f, indent=4)
-        # If the response is not successful, it throws an error
-        elif response.status_code !=200:
+            with open("tokens.json", "w") as change_token:
+                json.dump(old_token, change_token, indent=4)
+       
+        elif response.status_code != 200:
             print("Error",response.status_code,response.text)
     
     except requests.exceptions.ConnectionError:
@@ -95,7 +88,14 @@ def refresh_token():
        print("")
 
 
-    
+def file_exist():
+    if os.path.exists("tokens.json"):
+        file=True
+    else:
+        file = False
+    return file
+
+        
     
     
     

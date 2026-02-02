@@ -10,18 +10,19 @@ def callback():
     
     """ Waits for the callback and gets the authorization code
     (Just if the user accepts)
-    If there's no authorization code, 
+    If there's no authorization code, it will cancel the login.
 
     """
-    # Gets the code if the user accepts the log in session. 
+    # It gets the code if the user accepts the login session. 
     code = request.args.get("code")
-    error=request.args.get("error")
+    error = request.args.get("error")
     client_id,client_secret =secret_env()
     
     if code:
         got_access=authorization(code,client_id,client_secret)
          
     elif error:
+        print("Access denied.")
         
         return "Authorization denied."
     
