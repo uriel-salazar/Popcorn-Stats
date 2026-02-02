@@ -30,13 +30,10 @@ def authorization(code,client_id,client_secret):
                 refresh=authorize_json["refresh_token"]
                 expire=authorize_json["expires_in"]#test
                 
-                file=Path("tokens.json")
-                if file.exists():
-                    return
-                else:
-                    tokens={}
+                
+                tokens={}
                     
-                    with open("tokens.json","w") as info:
+                with open("tokens.json","w") as info:
                         tokens["access_token"] = accces
                         tokens["refresh_token"] = refresh
                         tokens["expires_in"] = expire

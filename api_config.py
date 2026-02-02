@@ -76,7 +76,6 @@ def refresh_token():
         response = requests.post(url, json=payload, headers=headers,timeout=3)
 
         if response.status_code == 200:
-            print("Success, new token ")
             new_data = response.json()
             # It replaces the old token with the new one 
             tokens["access_token"] = new_data["access_token"]

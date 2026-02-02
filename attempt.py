@@ -20,9 +20,8 @@ def see_user():
     get_info=requests.get(url,headers=headers)
     
     if get_info.status_code == 200:
-        print("Sucesss")
-        see=get_info.json()
-        print(see)
+        info_user = get_info.json()
+        print(f" Welcome {info_user} !")
         
     elif get_info.status_code == 400:
         print("Your token has expired")
