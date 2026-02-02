@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import webbrowser
 import requests
 import json
+from OAuth.api_config import *
+
 
 def secret_env():
     """
@@ -94,6 +96,24 @@ def file_exist():
     else:
         file = False
     return file
+
+def required_headers():
+    
+    with open("tokens.json","r") as credentials:
+        
+        see_credentials=json.load(credentials)
+        access_token=see_credentials["access_token"]
+        
+    client_id,_=secret_env()
+    
+    return {"Content-Type": "application/json",
+                "trakt-api-version": "2",
+              "trakt-api-key":client_id,
+              "Authorization": f"Bearer {access_token}"
+    }
+
+
+    
 
         
     

@@ -1,6 +1,6 @@
 from OAuth.api_config import open_link,secret_env,file_exist
 from Flask.flask_config import app
-from check_user import see_user
+from Actions.check_user import see_user
 from Validate.validate_input import verify_number
 
 
