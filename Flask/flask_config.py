@@ -19,7 +19,7 @@ def callback():
     client_id,client_secret =secret_env()
     
     if code:
-        got_access=authorization(code,client_id,client_secret)
+        authorization(code,client_id,client_secret)
          
     elif error:
         print("Access denied.")

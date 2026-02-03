@@ -7,6 +7,3 @@ def show_topmovie(movies_json):
          trailer=movie["trailer"]
          print(title,trailer)
     return
-
-    
-         
