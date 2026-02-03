@@ -1,5 +1,6 @@
 from OAuth.api_config import open_link,secret_env,file_exist
 from Flask.flask_config import app
+from Actions.show_interactions import show_topmovie
 from Actions.interactions import check_user,top_movies
 from Validate.validate_input import verify_number
 
@@ -33,8 +34,9 @@ def menu_options():
             choose_action=verify_number("Please, select an option :")
         
             if choose_action==1:
-                check_user()
-                top_movies()
+                movies_json=top_movies()
+                show_topmovie(movies_json)
+                
                 
     else:
         print("You can't have access to this actions.")

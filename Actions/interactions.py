@@ -1,6 +1,7 @@
 import requests
 import json
-from OAuth.api_config import secret_env,refresh_token,required_headers
+from OAuth.api_config import refresh_token,required_headers
+
 
 def check_user():
     """
@@ -20,17 +21,17 @@ def check_user():
         print(f" Welcome {info_user} !")
         
     elif get_user.status_code == 401:
-        print("Your token has expired")
+        print("Updating token")
         refresh_token()
         
 def top_movies():
+    from Actions.show_interactions import show_topmovie
     url_movies="https://api.trakt.tv/movies/popular"
     headers=required_headers()
     try:
         get_top=requests.get(url_movies,headers=headers,timeout=3)
         if get_top.status_code == 200:
             movies_json = get_top.json()
-            return movies_json
         
         elif get_top.status_code ==401:
             refresh_token()
@@ -40,6 +41,7 @@ def top_movies():
     
     except requests.exceptions.ConnectionError:
         print("Check your Connection ⚠️")
+    return movies_json
 
     
     
