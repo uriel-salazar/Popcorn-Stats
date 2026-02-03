@@ -3,7 +3,7 @@ from Flask.flask_config import app
 from Actions.show_interactions import show_topmovie
 from Actions.interactions import check_user,top_movies
 from Validate.validate_input import verify_number
-
+from authorization_class import UserAuth
 
 def menu():
     """ Main menu where user can log in and get access to the action's menu.
@@ -15,12 +15,12 @@ def menu():
         
         option=verify_number("Select an option : ")
         if option == 1:
-            client_id,__=secret_env()
-            open_link(client_id)
+            user=UserAuth()
+            user.secret_env()
+            user.open_link()
             app.run(port=8000)
-            print("Log in completed ! 🎉")
-            
-        if option==2:
+
+        elif option==2:
             menu_options()
             
 

@@ -1,8 +1,6 @@
 import os
 from dotenv import load_dotenv
-import webbrowser
-import requests
-import json
+import requests,json
 from OAuth.api_config import *
 
 
@@ -22,26 +20,6 @@ def secret_env():
     
     return client_id,client_secret
 
-def open_link(client_id):
-    """
-    Opens an url with the required credentials for the 
-    authorization code.
-    (It opens automatically in your browser)
-    
-    Returns:
-        client_id (str): The client id 
-    
-    """
-    client_id,_ = secret_env()
-    url = (
-        "https://trakt.tv/oauth/authorize"
-        f"?response_type=code"
-        f"&client_id={client_id}"
-        f"&redirect_uri=http://localhost:8000/callback"
-    )
-    
-    webbrowser.open(url)
-    return client_id
 
     
 def refresh_token():

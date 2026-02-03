@@ -1,10 +1,11 @@
 from dotenv import load_dotenv
-import os
-import webbrowser
 from Flask.flask_config import app
 from flask import request
+import json,requests,os,webbrowser
+from pprint import pprint
+from pathlib import Path
 
-class UserActions():
+class UserAuth():
     def __init__(self):
         pass
     def secret_env(self):
@@ -20,7 +21,6 @@ class UserActions():
         load_dotenv()
         client_id=os.getenv("client_id")
         client_secret=os.getenv("client_secret")
-        print(client_id)
     
         return client_id,client_secret
     
@@ -46,7 +46,7 @@ class UserActions():
         return client_id
 
     @app.route("/callback")
-    def callback(self):
+    def go_back(self):
     
         """ Waits for the callback and gets the authorization code
         (Just if the user accepts)
@@ -59,15 +59,61 @@ class UserActions():
         client_id,client_secret = self.secret_env()
     
         if code:
-            got_access=self.authorization(code,client_id,client_secret)
+            self.authorization(code,client_id,client_secret)
             return "Successful Authorization"
          
         elif error:
             print("Access denied.")
         
         return "Authorization denied."
+    
+    def authorization(self,code,client_id,client_secret):
+        url="https://trakt.tv/oauth/token"
+        payload = {
+        "code":code,
+        "client_id":client_id,
+        "client_secret":client_secret,
+        "redirect_uri":"http://localhost:8000/callback",
+        "grant_type": "authorization_code" 
+        }
+    
+        headers={"Content-Type":"application/json"}
+    
+        file=Path("tokens.json")
+        if file.exists():
+            return
+        else:
+            try:
+                get_access_token=requests.post(url,json=payload,headers=headers,timeout=3)
+            
+                if get_access_token.status_code == 200:
+                    print("You finally got your access token")
+                    authorize_json=get_access_token.json()
+                    pprint(authorize_json)
+                    accces=authorize_json["access_token"]
+                    refresh=authorize_json["refresh_token"]
+                    expire=authorize_json["expires_in"]
+                
+                tokens={}
+                    
+                with open("tokens.json","w") as info:
+                        tokens["access_token"] = accces
+                        tokens["refresh_token"] = refresh
+                        tokens["expires_in"] = expire
+                        json.dump(tokens,info,indent=4)
+                
+                           
+            except requests.exceptions.ConnectTimeout:
+                print("Connection Timeout,please try again")
+            
+            except requests.exceptions.ConnectionError:
+                print("Please verify your internet and try again.")
+            
+        return "Authorization finished."
 
-user1=UserActions()
+user=UserActions()
 
-user1.secret_env()
-user1.open_link()
+user.secret_env()
+user.open_link()
+app.run(port=8000)
+
