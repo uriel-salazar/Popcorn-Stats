@@ -1,9 +1,9 @@
-from OAuth.api_config import open_link,secret_env,file_exist
+from OAuth.api_config import file_exist
+from OAuth.authorization_class import UserAuth
 from Flask.flask_config import app
 from Actions.show_interactions import show_topmovie
-from Actions.interactions import check_user,top_movies
+from Actions.interactions import top_movies
 from Validate.validate_input import verify_number
-from authorization_class import UserAuth
 
 def menu():
     """ Main menu where user can log in and get access to the action's menu.

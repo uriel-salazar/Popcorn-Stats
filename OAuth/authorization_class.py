@@ -102,7 +102,7 @@ class UserAuth():
                         tokens["expires_in"] = expire
                         json.dump(tokens,info,indent=4)
                 
-                           
+                                
             except requests.exceptions.ConnectTimeout:
                 print("Connection Timeout,please try again")
             
@@ -110,10 +110,4 @@ class UserAuth():
                 print("Please verify your internet and try again.")
             
         return "Authorization finished."
-
-user=UserActions()
-
-user.secret_env()
-user.open_link()
-app.run(port=8000)
 
