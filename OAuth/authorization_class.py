@@ -1,13 +1,13 @@
 from dotenv import load_dotenv
-from Flask.flask_config import app
-from flask import request
+from flask import request,Flask
 import json,requests,os,webbrowser
 from pprint import pprint
 from pathlib import Path
 
+app=Flask(__name__)
 class UserAuth():
     def __init__(self):
-        pass
+        app.add_url_rule("/callback",view_func=self.go_back)
     def secret_env(self):
         """
     Retrieves secret data from .env files by using  the library dotenv 
@@ -44,8 +44,7 @@ class UserAuth():
     
         webbrowser.open(url)
         return client_id
-
-    @app.route("/callback")
+    
     def go_back(self):
     
         """ Waits for the callback and gets the authorization code
@@ -102,7 +101,7 @@ class UserAuth():
                         tokens["expires_in"] = expire
                         json.dump(tokens,info,indent=4)
                 
-                                
+                           
             except requests.exceptions.ConnectTimeout:
                 print("Connection Timeout,please try again")
             
@@ -110,4 +109,6 @@ class UserAuth():
                 print("Please verify your internet and try again.")
             
         return "Authorization finished."
+
+
 

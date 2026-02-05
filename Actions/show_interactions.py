@@ -1,9 +1,17 @@
 from Actions.interactions import top_movies
 
 def show_topmovie(movies_json):
-    movies_json=top_movies()
-    for movie in movies_json:
+    print("--- Top movies --- ")
+    for i,movie in enumerate(movies_json,start=1):
          title=movie["title"]
          trailer=movie["trailer"]
-         print(title,trailer)
+         print(f"- {i} {title}, {trailer}")
     return
+
+def show_topshow(shows_json):
+     print("--- Top Shows ---")
+     for i,show in enumerate(shows_json):
+          title=show=["title"]
+          trailer=show["trailer"]
+          print(f"- {i} {title}, {trailer}")
+    

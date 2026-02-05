@@ -1,9 +1,8 @@
 from OAuth.api_config import file_exist
-from OAuth.authorization_class import UserAuth
-from Flask.flask_config import app
-from Actions.show_interactions import show_topmovie
-from Actions.interactions import top_movies
+from Actions.show_interactions import show_topmovie,show_topshow
+from Actions.interactions import top_movies,top_show
 from Validate.validate_input import verify_number
+from OAuth.authorization_class import UserAuth,app
 
 def menu():
     """ Main menu where user can log in and get access to the action's menu.
@@ -29,18 +28,21 @@ def menu_options():
     if file:
         while True:
             print("1. Top 10 Popular movies !")
-            print("2. Endpoint")
+            print("2. Top 10 Popular shows ! ")
             print("3. Endpoint")
             choose_action=verify_number("Please, select an option :")
         
             if choose_action==1:
                 movies_json=top_movies()
                 show_topmovie(movies_json)
+                return
                 
-                
+            elif choose_action==2:
+                 shows_json=top_show()
+                 show_topshow(shows_json)
+       
     else:
-        print("You can't have access to this actions.")
-        print("You must authorize your account.")
+        print("Please, authorize your account first.")
             
     
 
