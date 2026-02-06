@@ -36,11 +36,11 @@ def top_movies():
         elif get_top.status_code ==401:
             refresh_token()
             
-    except requests.exceptions.ConnectTimeout:
-        print("Gateway Timeout")
+    except requests.exceptions.ReadTimeout:
+           print("Gateway Timeout")
     
     except requests.exceptions.ConnectionError:
-        print("Check your Connection ⚠️")
+        print(" Error Connection ⚠️")
 
 def top_show():
     url_show="https://api.trakt.tv/shows/popular"
@@ -56,13 +56,45 @@ def top_show():
         elif get_top_show==401:
              refresh_token()
     
-    except requests.exceptions.ConnectTimeout:
-         print("Gateway Timeout")
+    except requests.exceptions.ReadTimeout:
+         print("Gateway Timeout 🌐❌")
          
     except requests.exceptions.ConnectionError:
         print("Check your Connection ⚠️")
         
+
+def search_movie():
+    url= "https://api.trakt.tv/search"
+    headers=required_headers()
+    
+    ask_movie=input("Search Movie :")
+    
+    params={"query":ask_movie,
+            "type":"movie",
+            "limit":"2"}
+    
+    try:
+        get_movie=requests.get(url,headers=headers,params=params,timeout=3)
+        
+        if get_movie.status_code ==200:
+            found_movie=get_movie.json()
+            return found_movie
             
+        elif get_movie.status_code!=200:
+             print(get_movie.text)
+             refresh_token()
+             
+            
+    except requests.exceptions.ReadTimeout:
+        print("Gateway Timeout 🌐❌")
+         
+    except requests.exceptions.ConnectionError:
+        print("Check your Connection ⚠️")
+    
+       
+
+            
+
     
     
     

@@ -102,8 +102,8 @@ class UserAuth():
                         json.dump(tokens,info,indent=4)
                 
                            
-            except requests.exceptions.ConnectTimeout:
-                print("Connection Timeout,please try again")
+            except requests.exceptions.ReadTimeout:
+                print("Gateway Timeout")
             
             except requests.exceptions.ConnectionError:
                 print("Please verify your internet and try again.")

@@ -64,8 +64,8 @@ def refresh_token():
         print(" Bad Internet Connection")
         
     # If the timeout ends, it throws this exception
-    except requests.exceptions.ConnectTimeout:
-       print("")
+    except requests.exceptions.ReadTimeout:
+       print("Gateway Timeout 🌐❌")
 
 
 def file_exist():
