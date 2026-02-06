@@ -1,6 +1,6 @@
 import requests,json
 from OAuth.api_config import refresh_token,required_headers
-
+from pprint import pprint
 
 def check_user():
     """
@@ -20,11 +20,10 @@ def check_user():
         print(f" Welcome {info_user} !")
         
     elif get_user.status_code == 401:
-        print("Updating token")
         refresh_token()
         
 def top_movies():
-    from Actions.show_interactions import show_topmovie
+    
     url_movies="https://api.trakt.tv/movies/popular"
     headers=required_headers()
     try:
@@ -42,6 +41,27 @@ def top_movies():
         print("Check your Connection ⚠️")
     return movies_json
 
+def top_show():
+    url_show="https://api.trakt.tv/shows/popular"
+    headers=required_headers()
+    try:
+        get_top_show=requests.get(url_show,headers=headers,timeout=3)
+        
+        if get_top_show.status_code==200:
+            print("Success")
+            movies_json=get_top_show.json()
+            pprint(movies_json)
+        
+        elif get_top_show==401:
+             refresh_token()
+    
+    except requests.exceptions.ConnectTimeout:
+         print("Gateway Timeout")
+         
+    except requests.exceptions.ConnectionError:
+        print("Check your Connection ⚠️")
+        
+            
     
     
     

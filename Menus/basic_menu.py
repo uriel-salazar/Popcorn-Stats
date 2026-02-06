@@ -1,6 +1,6 @@
 from OAuth.api_config import file_exist
 from Actions.show_interactions import show_topmovie
-from Actions.interactions import top_movies
+from Actions.interactions import top_movies,top_show
 from Validate.validate_input import verify_number
 from OAuth.authorization_class import UserAuth,app
 
@@ -28,13 +28,18 @@ def menu_options():
     if file:
         while True:
             print("1. Top 10 Popular movies !")
-            print("2. Endpoint")
+            print("2. Top 10 Popular shows ! ")
             print("3. Endpoint")
             choose_action=verify_number("Please, select an option :")
         
             if choose_action==1:
                 movies_json=top_movies()
                 show_topmovie(movies_json)
+                return
+                
+            elif choose_action==2:
+                 top_show()
+    
                 
                 
     else:
