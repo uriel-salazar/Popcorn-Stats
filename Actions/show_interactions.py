@@ -10,7 +10,7 @@ def show_movie(movies_json):
 
 def display_show(shows_json):
      print("--- Top Shows ---")
-     for i,show in enumerate(shows_json):
+     for i,show in enumerate(shows_json,start=1):
           title=show["title"]
           trailer=show["trailer"]
           rating=show["rating"]
@@ -18,6 +18,7 @@ def display_show(shows_json):
 
 
 def show_search_movies(found_movie):
-     print("--- Results from your search ")
-     for i,movie in enumerate(found_movie):
-         pass
+     print("--- Results from your search --- ")
+     for i,movie in enumerate(found_movie,start=1):
+          title=movie["movie"]["title"]
+          print(f"- {i} {title}")

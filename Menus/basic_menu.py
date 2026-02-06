@@ -1,5 +1,5 @@
 from OAuth.api_config import file_exist
-from Actions.show_interactions import show_movie,display_show
+from Actions.show_interactions import show_movie,display_show,show_search_movies
 from Actions.interactions import top_movies,top_show,search_movie
 from Validate.validate_input import verify_number
 from OAuth.authorization_class import UserAuth,app
@@ -49,6 +49,11 @@ def menu_options():
                  
             elif choose_action==3:
                  found_movie=search_movie()
+                 if found_movie==None:
+                    print("Please, check your internet and try again.")
+                 else:
+                     show_search_movies(found_movie)
+                     
                 
        
     else:

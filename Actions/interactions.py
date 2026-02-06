@@ -71,7 +71,7 @@ def search_movie():
     
     params={"query":ask_movie,
             "type":"movie",
-            "limit":"2"}
+            "limit":"6"}
     
     try:
         get_movie=requests.get(url,headers=headers,params=params,timeout=3)
