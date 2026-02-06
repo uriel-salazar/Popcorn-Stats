@@ -7,3 +7,11 @@ def show_topmovie(movies_json):
          trailer=movie["trailer"]
          print(f"- {i} {title}, {trailer}")
     return
+
+def show_topshow(shows_json):
+     print("--- Top Shows ---")
+     for i,show in enumerate(shows_json):
+          title=show=["title"]
+          trailer=show["trailer"]
+          print(f"- {i} {title}, {trailer}")
+    

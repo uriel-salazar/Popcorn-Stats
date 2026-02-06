@@ -26,10 +26,12 @@ def top_movies():
     
     url_movies="https://api.trakt.tv/movies/popular"
     headers=required_headers()
+    
     try:
         get_top=requests.get(url_movies,headers=headers,timeout=3)
         if get_top.status_code == 200:
             movies_json = get_top.json()
+            return movies_json
         
         elif get_top.status_code ==401:
             refresh_token()
@@ -39,7 +41,6 @@ def top_movies():
     
     except requests.exceptions.ConnectionError:
         print("Check your Connection ⚠️")
-    return movies_json
 
 def top_show():
     url_show="https://api.trakt.tv/shows/popular"
@@ -49,8 +50,8 @@ def top_show():
         
         if get_top_show.status_code==200:
             print("Success")
-            movies_json=get_top_show.json()
-            pprint(movies_json)
+            shows_json=get_top_show.json()
+            return shows_json
         
         elif get_top_show==401:
              refresh_token()

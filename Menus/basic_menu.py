@@ -1,5 +1,5 @@
 from OAuth.api_config import file_exist
-from Actions.show_interactions import show_topmovie
+from Actions.show_interactions import show_topmovie,show_topshow
 from Actions.interactions import top_movies,top_show
 from Validate.validate_input import verify_number
 from OAuth.authorization_class import UserAuth,app
@@ -38,13 +38,11 @@ def menu_options():
                 return
                 
             elif choose_action==2:
-                 top_show()
-    
-                
-                
+                 shows_json=top_show()
+                 show_topshow(shows_json)
+       
     else:
-        print("You can't have access to this actions.")
-        print("You must authorize your account.")
+        print("Please, authorize your account first.")
             
     
 
