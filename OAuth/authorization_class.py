@@ -6,16 +6,18 @@ from pathlib import Path
 
 app=Flask(__name__)
 class UserAuth():
+    """ Class for user's authorization.
+    """
     def __init__(self):
         app.add_url_rule("/callback",view_func=self.go_back)
     def secret_env(self):
         """
-    Retrieves secret data from .env files by using  the library dotenv 
+    It gets secret data from .env files by using the library dotenv 
     and the os module.
 
     Returns:
         client_id (str): Client ID from Trackt API
-        client_secret (str): Client secret from Trackt API
+        client_secret (str): Client Secret from Trackt API
         
     """
         load_dotenv()
@@ -43,7 +45,6 @@ class UserAuth():
         )
     
         webbrowser.open(url)
-        return client_id
     
     def go_back(self):
     
@@ -86,9 +87,8 @@ class UserAuth():
                 get_access_token=requests.post(url,json=payload,headers=headers,timeout=3)
             
                 if get_access_token.status_code == 200:
-                    print("You finally got your access token")
+                    print("Your login was successful!")
                     authorize_json=get_access_token.json()
-                    pprint(authorize_json)
                     accces=authorize_json["access_token"]
                     refresh=authorize_json["refresh_token"]
                     expire=authorize_json["expires_in"]
