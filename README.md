@@ -9,6 +9,7 @@
 - ![OAuth 2.0 badge](https://img.shields.io/badge/OAuth2.0-auth-blue)
 - ![Postman](https://img.shields.io/badge/Postman-FF6C37?logo=Postman&logoColor=white&style=for-the-badge)
 - ![Requests](https://img.shields.io/badge/Requests-202020?style=flat&logo=requests&logoColor=white)
+- ![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)
 ## Getting started 
 - Python 3.10+
 - pip installed
