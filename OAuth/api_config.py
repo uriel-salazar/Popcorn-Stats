@@ -6,7 +6,7 @@ from OAuth.api_config import *
 
 def secret_env():
     """
-    Retrieves secret data from .env files by using  the library dotenv 
+    Gets secret data from .env files by using  the library dotenv 
     and the os module.
 
     Returns:
@@ -69,6 +69,7 @@ def refresh_token():
 
 
 def file_exist():
+    
     if os.path.exists("tokens.json"):
         file=True
     else:
@@ -76,6 +77,11 @@ def file_exist():
     return file
 
 def required_headers():
+    """ Automates the default headers for TraktAPI.
+
+    Returns:
+        (dict): The required headers for API calls. 
+    """
     
     with open("tokens.json","r") as credentials:
         

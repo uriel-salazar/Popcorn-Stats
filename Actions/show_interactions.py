@@ -1,14 +1,23 @@
-from Actions.interactions import top_movies
 
 def show_movie(movies_json):
-    print("--- Top movies --- ")
-    for i,movie in enumerate(movies_json,start=1):
+     """ Iterates popular movies and shows them to the user.
+
+     Args:
+         movies_json (dict): 10 Popular movies dict
+     """
+     print("--- Top movies --- ")
+     for i,movie in enumerate(movies_json,start=1):
          title=movie["title"]
          trailer=movie["trailer"]
          print(f"- {i} {title}, {trailer}")
-    return
 
 def display_show(shows_json):
+     """ Iterates popular shows and shows them to the user.
+     It shows the title of the show, the trailer and the rating.
+
+     Args:
+         shows_json (dict): 10 Popular shows dict
+     """
      print("--- Top Shows ---")
      for i,show in enumerate(shows_json,start=1):
           title=show["title"]
@@ -18,6 +27,11 @@ def display_show(shows_json):
 
 
 def show_search_movies(found_movie):
+     """ Shows the movies found by the user's search
+
+     Args:
+         found_movie (dict): Movies found.
+     """
      print("--- Results from your search --- ")
      for i,movie in enumerate(found_movie,start=1):
           title=movie["movie"]["title"]

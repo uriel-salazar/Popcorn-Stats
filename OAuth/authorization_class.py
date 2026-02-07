@@ -1,15 +1,14 @@
 from dotenv import load_dotenv
 from flask import request,Flask
 import json,requests,os,webbrowser
-from pprint import pprint
-from pathlib import Path
+
 
 app=Flask(__name__)
 class UserAuth():
     """ Class for user's authorization.
     """
     def __init__(self):
-        app.add_url_rule("/callback",view_func=self.go_back)
+        app.add_url_rule("/callback",view_func=self.callback)
     def secret_env(self):
         """
     It gets secret data from .env files by using the library dotenv 
@@ -32,9 +31,6 @@ class UserAuth():
         authorization code.
         (It opens automatically in your browser)
     
-        Returns:
-        client_id (str): The client id 
-    
         """
         client_id,_ = self.secret_env()
         url = (
@@ -46,7 +42,7 @@ class UserAuth():
     
         webbrowser.open(url)
     
-    def go_back(self):
+    def callback(self):
     
         """ Waits for the callback and gets the authorization code
         (Just if the user accepts)
@@ -68,6 +64,13 @@ class UserAuth():
         return "Authorization denied."
     
     def authorization(self,code,client_id,client_secret):
+        """ Creates a json file for keeping the access and the client secret token.
+
+        Args:
+            code (str): Authorization code.
+            client_id (str): Client id from Trakt API.
+            client_secret (str): Client secret from Trakt API.
+        """
         url="https://trakt.tv/oauth/token"
         payload = {
         "code":code,
@@ -79,11 +82,7 @@ class UserAuth():
     
         headers={"Content-Type":"application/json"}
     
-        file=Path("tokens.json")
-        if file.exists():
-            return
-        else:
-            try:
+        try:
                 get_access_token=requests.post(url,json=payload,headers=headers,timeout=3)
             
                 if get_access_token.status_code == 200:
@@ -102,13 +101,12 @@ class UserAuth():
                         json.dump(tokens,info,indent=4)
                 
                            
-            except requests.exceptions.ReadTimeout:
+        except requests.exceptions.ReadTimeout:
                 print("Gateway Timeout")
             
-            except requests.exceptions.ConnectionError:
+        except requests.exceptions.ConnectionError:
                 print("Please verify your internet and try again.")
             
-        return "Authorization finished."
 
 
 

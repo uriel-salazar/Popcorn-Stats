@@ -19,11 +19,11 @@ def menu():
             file=file_exist()
             if file:
                 print("You're already logged in!")
-            else:
-                user=UserAuth()
-                user.secret_env()
-                user.open_link()
-                app.run(port=8000)
+            #Class for authorization.
+            user=UserAuth()
+            user.secret_env()
+            user.open_link()
+            app.run(port=8000)
 
         elif option==2:
             menu_options()
