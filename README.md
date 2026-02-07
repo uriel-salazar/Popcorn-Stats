@@ -1,5 +1,5 @@
 # Popcorn Stats🎬
-  A CLI program with TraktAPI.
+  A CLI program with TraktAPI (made for learning Oauth2.0) 
 ## Description 
    Log in with your Trakt Account, discover recent popular movies and shows and search for your favorite ones.
 
@@ -12,6 +12,8 @@
 ## Getting started 
 - Python 3.10+
 - pip installed
+- pip Flask and requests installed
+- pip dotenv 
 - A trakt API account with your app created (for your credentials). 
 ## Installation
   *1*. **Clone repository**
@@ -23,6 +25,10 @@ https://github.com/uriel-salazar/Popcorn-Stats
   ```bash
      client_id="YOUR CLIENT ID "
      client_secret="YOUR CLIENT SECRET "
+ ```
+*3*. **Running**
+  ```bash
+     python main.py
  ```
     
 
